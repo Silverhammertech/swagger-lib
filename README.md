@@ -3,7 +3,7 @@ Library to display Swagger documentation in HTML format
 
 ## Install
 
-	go get github.com/werpas/ui-swagger
+	go get github.com/Silverhammertech/swagger-lib
 	
 ## Prerequisite
 
@@ -24,7 +24,7 @@ import (
         "log"
 	    "net/http"
         "github.com/gorilla/mux"
-        sw "github.com/Silverhammertech/ui-swagger"
+        sw "github.com/Silverhammertech/swagger-lib"
 )
 const base_path = "/api/v1/"
 func SetupRestServer() {

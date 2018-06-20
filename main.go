@@ -1,13 +1,13 @@
-package swagger_ui
+package swagger_lib
 
 import (
-	"github.com/gorilla/mux"
-	"net/http"
-	"runtime"
-	"path"
-	"log"
 	"errors"
+	"github.com/gorilla/mux"
+	"log"
+	"net/http"
 	"os"
+	"path"
+	"runtime"
 
 	// include static files
 	_ "github.com/werpas/ui-swagger/static"
@@ -15,9 +15,9 @@ import (
 	_ "github.com/werpas/ui-swagger/static/fonts"
 	_ "github.com/werpas/ui-swagger/static/images"
 	_ "github.com/werpas/ui-swagger/static/js"
+	_ "github.com/werpas/ui-swagger/static/json"
 	_ "github.com/werpas/ui-swagger/static/lang"
 	_ "github.com/werpas/ui-swagger/static/lib"
-	_ "github.com/werpas/ui-swagger/static/json"
 )
 
 const (
@@ -36,22 +36,22 @@ func AttachSwaggerUI(router *mux.Router, base_path string) (err error) {
 	if _, err2 := os.Stat("./api/" + SWAGGER_FILE); err2 == nil {
 
 		// set swagger.json file route
-		router.PathPrefix(base_path + "help/data").Handler(http.StripPrefix(base_path + "help/data", http.FileServer(http.Dir("./api"))))
+		router.PathPrefix(base_path + "help/data").Handler(http.StripPrefix(base_path+"help/data", http.FileServer(http.Dir("./api"))))
 	} else {
 		// set default swagger doc
-		router.PathPrefix(base_path + "help/data").Handler(http.StripPrefix(base_path + "help/data", http.FileServer(http.Dir(staticPath + "json"))))
+		router.PathPrefix(base_path + "help/data").Handler(http.StripPrefix(base_path+"help/data", http.FileServer(http.Dir(staticPath+"json"))))
 
 		err = errors.New("swagger-ui.AttachSwaggerUI() -> ERROR: swagger.json file does not exists. " + err2.Error())
 		log.Println(err.Error())
 	}
 
-	router.PathPrefix(base_path + "help/css").Handler(http.StripPrefix(base_path + "help/css", http.FileServer(http.Dir(staticPath + "css"))))
-	router.PathPrefix(base_path + "help/fonts").Handler(http.StripPrefix(base_path + "help/fonts", http.FileServer(http.Dir(staticPath + "fonts"))))
-	router.PathPrefix(base_path + "help/images").Handler(http.StripPrefix(base_path + "help/images", http.FileServer(http.Dir(staticPath + "images"))))
-	router.PathPrefix(base_path + "help/js").Handler(http.StripPrefix(base_path + "help/js", http.FileServer(http.Dir(staticPath + "js"))))
-	router.PathPrefix(base_path + "help/lang").Handler(http.StripPrefix(base_path + "help/lang", http.FileServer(http.Dir(staticPath + "lang"))))
-	router.PathPrefix(base_path + "help/lib").Handler(http.StripPrefix(base_path + "help/lib", http.FileServer(http.Dir(staticPath + "lib"))))
-	router.PathPrefix(base_path + "help").Handler(http.StripPrefix(base_path + "help", http.FileServer(http.Dir(staticPath))))
+	router.PathPrefix(base_path + "help/css").Handler(http.StripPrefix(base_path+"help/css", http.FileServer(http.Dir(staticPath+"css"))))
+	router.PathPrefix(base_path + "help/fonts").Handler(http.StripPrefix(base_path+"help/fonts", http.FileServer(http.Dir(staticPath+"fonts"))))
+	router.PathPrefix(base_path + "help/images").Handler(http.StripPrefix(base_path+"help/images", http.FileServer(http.Dir(staticPath+"images"))))
+	router.PathPrefix(base_path + "help/js").Handler(http.StripPrefix(base_path+"help/js", http.FileServer(http.Dir(staticPath+"js"))))
+	router.PathPrefix(base_path + "help/lang").Handler(http.StripPrefix(base_path+"help/lang", http.FileServer(http.Dir(staticPath+"lang"))))
+	router.PathPrefix(base_path + "help/lib").Handler(http.StripPrefix(base_path+"help/lib", http.FileServer(http.Dir(staticPath+"lib"))))
+	router.PathPrefix(base_path + "help").Handler(http.StripPrefix(base_path+"help", http.FileServer(http.Dir(staticPath))))
 
 	return
 }
@@ -76,4 +76,3 @@ func getWorkingDirectory() (staticPath string, err error) {
 
 	return
 }
-
